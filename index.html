@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-black">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jainil Gandhi | AI Engineer & Full-Stack Developer</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <script>
+        /* Animation on Scroll */
+        document.addEventListener("DOMContentLoaded", function () {
+            const style = document.createElement("style");
+            style.textContent = `
+                .animate-on-scroll { animation-play-state: paused !important; }
+                .animate-on-scroll.animate { animation-play-state: running !important; }
+            `;
+            document.head.appendChild(style);
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("animate");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -10% 0px" });
+
+            document.querySelectorAll(".animate-on-scroll").forEach((el) => {
+                observer.observe(el);
+            });
+        });
+
+        /* Tab Switching Logic */
+        function switchTab(tabId) {
+            // Hide all contents
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            
+            // Show selected content
+            const activeContent = document.getElementById('tab-content-' + tabId);
+            if(activeContent) {
+                activeContent.style.display = 'block';
+                activeContent.classList.remove('active');
+                void activeContent.offsetWidth; // trigger reflow
+                activeContent.classList.add('active');
+            }
+            
+            // Update Buttons
+            document.querySelectorAll('[id^="tab-btn-"]').forEach(btn => {
+                btn.classList.remove('bg-white/10', 'text-white', 'shadow-lg');
+                btn.classList.add('text-neutral-500');
+                btn.style.borderColor = 'transparent';
+            });
+            
+            const activeBtn = document.getElementById('tab-btn-' + tabId);
+            if(activeBtn) {
+                activeBtn.classList.remove('text-neutral-500');
+                activeBtn.classList.add('bg-white/10', 'text-white', 'shadow-lg');
+                activeBtn.style.border = '1px solid rgba(255,255,255,0.1)';
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.4);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        @keyframes animationIn {
+            0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+        }
+        
+        .ambient-light {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(167, 139, 250, 0.03), transparent 25%);
+        }
+        
+        .glass-panel {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        
+        .glass-panel:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-liquid {
+            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%), var(--accent);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 4px 12px var(--accent-glow);
+            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn-liquid:hover {
+            transform: translateY(-1px);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 8px 24px var(--accent-glow);
+        }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: softFade 0.5s ease forwards; }
+        
+        @keyframes softFade {
+            from { opacity: 0; transform: translateY(8px); filter: blur(4px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        
+        @keyframes borderBeamRotation {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        @keyframes rotate-gradient { to { transform: rotate(360deg); } }
+    </style>
+</head>
+
+<body class="selection:bg-sky-500/30 selection:text-white overflow-x-hidden text-neutral-300 relative">
+
+    <div class="fixed top-0 w-full h-[50vh] md:h-screen -z-10 saturate-0 opacity-80" style="mask-image: linear-gradient(to bottom, transparent, black 0%, black 80%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 0%, black 80%, transparent)">
+        <iframe src="https://my.spline.design/glowingplanetparticles-HmCVKutonlFn3Oqqe6DI9nWi/" frameborder="0" width="100%" height="100%" class="absolute top-0 left-0 w-full h-full z-0"></iframe>
+    </div>
+    <div class="ambient-light"></div>
+
+    <header class="fixed top-0 w-full z-50 border-b border-white/5 bg-black/60 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="relative flex items-center justify-center w-8 h-8 rounded-full overflow-hidden border border-white/10">
+                    <img src="file:///C:/Users/Tarak%20Gandhi/Downloads/Jainil_pic1.jpeg" alt="Profile" class="w-full h-full object-cover">
+                </div>
+                <span class="font-semibold tracking-tighter text-white text-xs uppercase">Jainil Gandhi</span>
+            </div>
+
+            <nav class="hidden md:flex gap-8 text-[11px] font-medium tracking-wide uppercase text-neutral-500">
+                <a href="#about" class="hover:text-white transition-colors">About</a>
+                <a href="#specialties" class="hover:text-white transition-colors">Specialties</a>
+                <a href="#wip" class="hover:text-sky-400 transition-colors">WIP</a>
+                <a href="#projects" class="hover:text-white transition-colors">Projects</a>
+                <a href="#experience" class="hover:text-white transition-colors">Experience</a>
+            </nav>
+
+            <a href="mailto:jainilgandhi02@gmail.com" class="hidden md:flex items-center justify-center text-[11px] font-medium text-white transition-all bg-white/5 border border-white/10 px-4 py-1.5 rounded-full hover:bg-white/10">
+                <span class="tracking-wider">LET'S TALK</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="md:pt-48 md:pb-36 flex flex-col overflow-hidden text-center pt-32 pr-6 pb-24 pl-6 relative items-center">
+        <div class="relative z-10 flex flex-col items-center animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.1s both">
+            <div class="mb-8 p-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
+                <img src="file:///C:/Users/Tarak%20Gandhi/Downloads/Jainil_pic1.jpeg" alt="Jainil Gandhi" class="opacity-90 w-20 h-20 object-cover rounded-full scale-150">
+            </div>
+
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-medium text-white tracking-tighter mb-8 max-w-5xl mx-auto leading-[1] drop-shadow-2xl">
+                Automate & Build with <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-400">Agentic AI</span>
+            </h1>
+
+            <p class="text-neutral-400 text-sm md:text-base max-w-xl mx-auto mb-12 leading-relaxed font-light tracking-wide">
+                AI & Full-Stack Developer focused on Generative AI and Automation. I transform complex bottlenecks into fluid workflows using Python, LLMs, and modern web technologies.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-center justify-center">
+                <a href="mailto:jainilgandhi02@gmail.com" class="group isolate inline-flex cursor-pointer overflow-hidden transition-all duration-300 hover:scale-105 rounded-full relative w-full sm:w-auto justify-center" style="--spread: 90deg; --shimmer-color: rgba(255,255,255,0.6); --speed: 4s; --cut: 1px; --bg: rgba(255, 255, 255, 0.05);">
+                    <div class="absolute inset-0">
+                        <div class="absolute inset-[-200%] w-[400%] h-[400%]" style="animation: rotate-gradient var(--speed) linear infinite">
+                            <div class="absolute inset-0" style="background: conic-gradient(from calc(270deg - (var(--spread) * 0.5)), transparent 0, var(--shimmer-color) var(--spread), transparent var(--spread))"></div>
+                        </div>
+                    </div>
+                    <div class="absolute rounded-full backdrop-blur" style="background: var(--bg); inset: var(--cut)"></div>
+                    <div class="z-10 flex gap-2 sm:w-auto overflow-hidden text-xs uppercase font-semibold tracking-wider text-white w-full py-3.5 px-8 relative items-center justify-center rounded-full">
+                        <div style="position: absolute; content: ''; display: block; width: 200%; height: 200%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2), transparent); animation: borderBeamRotation 4s infinite linear; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;"></div>
+                        <div style="position: absolute; inset: 1px; background: rgba(56, 189, 248, 0.9); border-radius: 9999px; backdrop-filter: blur(8px);"></div>
+                        <span class="whitespace-nowrap relative z-10">Email Me</span>
+                    </div>
+                </a>
+                <a href="#projects" class="flex items-center justify-center gap-2 glass-panel hover:text-white uppercase transition-colors sm:w-auto group text-xs font-medium text-neutral-300 tracking-wider w-full rounded-lg pt-3.5 pr-8 pb-3.5 pl-8">
+                    View Projects
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-32 px-6 border-b border-white/5 relative z-10">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8 animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.2s both">
+                <h2 class="text-3xl md:text-4xl font-medium text-white tracking-tighter">
+                    Bridging the gap between ideas and intelligent systems.
+                </h2>
+                <div class="space-y-8">
+                    <div class="flex items-start gap-5">
+                        <div class="w-0.5 h-12 bg-neutral-800 mt-1"></div>
+                        <div>
+                            <h4 class="text-white text-sm font-medium mb-2">Manual Operations</h4>
+                            <p class="text-neutral-500 text-sm font-light leading-relaxed">Traditional workflows and repetitive tasks drain margins and limit scalability.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-5">
+                        <div class="w-0.5 h-12 bg-sky-500 shadow-[0_0_15px_rgba(56,189,248,0.5)] mt-1"></div>
+                        <div>
+                            <h4 class="text-white text-sm font-medium mb-2">Autonomous Advantage</h4>
+                            <p class="text-neutral-400 text-sm font-light leading-relaxed">AI agents and automated pipelines maximize efficiency with zero manual overhead, unlocking scalable growth.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-panel p-10 rounded-2xl relative overflow-hidden animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.4s both">
+                <p class="text-xl md:text-2xl font-light text-neutral-200 leading-relaxed mb-8 relative z-10">
+                    "The future belongs to those who automate the mundane to focus on the exceptional."
+                </p>
+                <div class="flex items-center gap-3 relative z-10">
+                    <div class="w-6 h-px bg-sky-500"></div>
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-sky-500 font-semibold">Jainil Gandhi</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-black/20 border-white/5 border-b pt-24 pr-6 pb-24 pl-6 relative" id="specialties">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl font-medium text-white tracking-tight mb-10 animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.2s both">My Specialties</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="glass-panel rounded-xl p-8 animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.2s both">
+                    <h3 class="text-white font-medium mb-2">AI Automation</h3>
+                    <p class="text-xs text-neutral-400 mb-6 font-light leading-relaxed">Building robust AI automation workflows and custom API integrations.</p>
+                    <span class="text-[10px] px-2 py-1 rounded border border-white/10 text-neutral-400">n8n / Twilio</span>
+                </div>
+
+                <div class="glass-panel rounded-xl p-8 animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.4s both">
+                    <h3 class="text-white font-medium mb-2">Generative AI</h3>
+                    <p class="text-xs text-neutral-400 mb-6 font-light leading-relaxed">Integrating multiple LLM APIs like OpenAI and Claude for cognitive systems.</p>
+                    <span class="text-[10px] px-2 py-1 rounded border border-white/10 text-neutral-400">LLM APIs</span>
+                </div>
+
+                <div class="glass-panel rounded-xl p-8 animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.6s both">
+                    <h3 class="text-white font-medium mb-2">Prompt Engineering</h3>
+                    <p class="text-xs text-neutral-400 mb-6 font-light leading-relaxed">Optimizing inputs and context windows to extract maximum potential.</p>
+                    <span class="text-[10px] px-2 py-1 rounded border border-white/10 text-neutral-400">IBM Certified</span>
+                </div>
+
+                <div class="glass-panel rounded-xl p-8 animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.8s both">
+                    <h3 class="text-white font-medium mb-2">Full-Stack Dev</h3>
+                    <p class="text-xs text-neutral-400 mb-6 font-light leading-relaxed">React.js, Django, FastAPI, and Node.js for seamless backend integration.</p>
+                    <span class="text-[10px] px-2 py-1 rounded border border-white/10 text-neutral-400">PostgreSQL</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-black border-white/5 border-b pt-24 pr-6 pb-24 pl-6 relative" id="wip">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex items-center gap-3 mb-10 animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.2s both">
+                <div class="p-2 rounded bg-sky-500/10 border border-sky-500/20 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="20" height="20" viewBox="0 0 24 24" class="text-sky-400"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></g></svg>
+                </div>
+                <h2 class="text-2xl font-medium text-white tracking-tight">
+                    Currently Building (WIP)
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <div class="glass-panel p-8 rounded-2xl relative overflow-hidden group border-sky-500/20 animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.4s both">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-sky-500/10 rounded-full blur-[60px] translate-x-1/2 -translate-y-1/2"></div>
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-medium text-white">DONNA: Core Upgrades</h3>
+                        <span class="flex h-3 w-3 relative">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+                        </span>
+                    </div>
+                    <p class="text-sm text-neutral-400 font-light leading-relaxed mb-6">
+                        Actively evolving the <strong>DONNA AI Voice Assistant</strong> infrastructure. Upgrading the LLM API routing (OpenAI & Claude integration) to reduce latency and expanding the system-level automation capabilities (browser actions, OS commands) using advanced Agentic AI paradigms.
+                    </p>
+                    <div class="w-full bg-white/5 rounded-full h-1.5 mb-2">
+                        <div class="bg-sky-500 h-1.5 rounded-full" style="width: 65%"></div>
+                    </div>
+                    <p class="text-right text-[10px] text-sky-400 uppercase tracking-widest font-semibold">65% Deployed</p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl relative overflow-hidden group border-purple-500/20 animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.6s both">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-[60px] translate-x-1/2 -translate-y-1/2"></div>
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-medium text-white">XpertTalk Ecosystem</h3>
+                        <span class="flex h-3 w-3 relative">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+                        </span>
+                    </div>
+                    <p class="text-sm text-neutral-400 font-light leading-relaxed mb-6">
+                        Scaling the backend integration of <strong>XpertTalk</strong>. Transitioning the platform to a highly animated, premium UI/UX standard while optimizing the Django & Node.js backend infrastructure to handle real-time learner-to-expert matchmaking with AI-driven guidance.
+                    </p>
+                    <div class="w-full bg-white/5 rounded-full h-1.5 mb-2">
+                        <div class="bg-purple-500 h-1.5 rounded-full" style="width: 80%"></div>
+                    </div>
+                    <p class="text-right text-[10px] text-purple-400 uppercase tracking-widest font-semibold">80% Developed</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-black/20 pt-32 pr-6 pb-24 pl-6 relative border-white/5 border-b" id="projects">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20 animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.2s both">
+                <h2 class="text-3xl font-medium text-white tracking-tight mb-4">Solutions Gallery</h2>
+                <p class="text-neutral-500 text-sm">Explore real AI applications, products, and automation pipelines.</p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center mb-12 animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.4s both">
+                <div class="inline-flex bg-neutral-900/40 backdrop-blur-md p-1.5 rounded-full border border-white/5">
+                    <button onclick="switchTab('apps')" id="tab-btn-apps" class="px-8 py-2.5 text-xs font-medium rounded-full transition-all duration-300 bg-white/10 text-white shadow-lg border border-white/10">AI Applications</button>
+                    <button onclick="switchTab('workflows')" id="tab-btn-workflows" class="px-8 py-2.5 text-xs font-medium rounded-full text-neutral-500 hover:text-white transition-all duration-300 hover:bg-white/5 border border-transparent">Workflows</button>
+                </div>
+            </div>
+
+            <div id="tab-content-apps" class="tab-content active">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <a href="https://github.com/JainilGandhi16" target="_blank" class="glass-panel p-8 rounded-2xl relative overflow-hidden block group hover:border-sky-500/50 transition-colors">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-sky-500/10 rounded-full blur-[60px] translate-x-1/2 -translate-y-1/2"></div>
+                        <h3 class="text-xl font-medium text-white uppercase mb-6 group-hover:text-sky-400 transition-colors">DONNA</h3>
+                        <p class="text-sm text-neutral-400 font-light leading-relaxed mb-6">An AI voice assistant integrating multiple LLM APIs. Implements low-latency speech recognition, TTS workflows, app launching, and system automation.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-[10px] text-sky-300">Python</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-neutral-400">OpenAI & Claude</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/JainilGandhi16" target="_blank" class="glass-panel p-8 rounded-2xl relative overflow-hidden block group hover:border-purple-500/50 transition-colors">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-[60px] translate-x-1/2 -translate-y-1/2"></div>
+                        <h3 class="text-xl font-medium text-white mb-6 group-hover:text-purple-400 transition-colors">XpertTalk</h3>
+                        <p class="text-sm text-neutral-400 font-light leading-relaxed mb-6">An AI-powered platform connecting learners with industry professionals. Features responsive UI and robust backend integration.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-[10px] text-purple-300">React.js</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-neutral-400">Django</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/JainilGandhi16" target="_blank" class="glass-panel p-8 rounded-2xl relative overflow-hidden block group md:col-span-2 lg:col-span-1 hover:border-green-500/50 transition-colors">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full blur-[60px] translate-x-1/2 -translate-y-1/2"></div>
+                        <h3 class="text-xl font-medium text-white mb-6 group-hover:text-green-400 transition-colors">PDF Engine</h3>
+                        <p class="text-sm text-neutral-400 font-light leading-relaxed mb-6">A lightweight PDF processing utility optimized for Python-based logic in embedded environments and deployed on Raspberry Pi systems.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-[10px] text-green-300">Python</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-neutral-400">Raspberry Pi</span>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+            <div id="tab-content-workflows" class="tab-content">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="glass-panel p-6 rounded-2xl hover:border-white/20 transition-all">
+                        <h4 class="text-lg font-medium text-white mb-2">Lead Management</h4>
+                        <p class="text-xs text-neutral-400 font-light">Custom API integrations to capture, qualify, and distribute inbound requests.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl hover:border-white/20 transition-all">
+                        <h4 class="text-lg font-medium text-white mb-2">Data Operations</h4>
+                        <p class="text-xs text-neutral-400 font-light">End-to-end Python scraping pipelines formatting data directly into structured SQL/NoSQL databases.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 border-white/5 border-b relative" id="experience">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
+            
+            <div class="animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.2s both">
+                <h2 class="text-2xl font-medium text-white tracking-tight mb-10">Professional Experience</h2>
+                <div class="space-y-8 pl-4 border-l border-white/10 relative">
+                    
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1 h-3 w-3 rounded-full bg-sky-500 border-4 border-black"></div>
+                        <div class="glass-panel p-6 rounded-xl">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-white font-medium">Machine Learning Intern</h3>
+                                <span class="text-[10px] text-sky-400 font-medium">May 2024 - Jun 2024</span>
+                            </div>
+                            <h4 class="text-xs text-neutral-500 uppercase tracking-widest mb-4">Saubhagyam Web Pvt. Ltd.</h4>
+                            <ul class="text-xs text-neutral-400 font-light leading-relaxed space-y-2 list-disc pl-4">
+                                <li>Developed Python-based ML scripts and tested solutions on Raspberry Pi systems.</li>
+                                <li>Worked on Python-based ML workflows and practical machine learning implementations.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1 h-3 w-3 rounded-full bg-white/30 border-4 border-black"></div>
+                        <div class="glass-panel p-6 rounded-xl">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-white font-medium">Freelance Developer</h3>
+                                <span class="text-[10px] text-white/50 font-medium">Jan 2024 - Present</span>
+                            </div>
+                            <h4 class="text-xs text-neutral-500 uppercase tracking-widest mb-4">Self-Employed</h4>
+                            <ul class="text-xs text-neutral-400 font-light leading-relaxed space-y-2 list-disc pl-4">
+                                <li>Built functional AI automation workflows and custom API integrations.</li>
+                                <li>Developed responsive interfaces and practical software solutions.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.4s both">
+                <h2 class="text-2xl font-medium text-white tracking-tight mb-10">Certifications</h2>
+                <div class="grid grid-cols-1 gap-4">
+                    
+                    <div class="glass-panel p-5 rounded-xl flex items-center gap-4 hover:border-white/20 transition-all">
+                        <div class="p-2 bg-white/5 rounded-md text-sky-400"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2L1 7l11 5l9-4.09V17h2V7L12 2zm0 2.18l8.2 3.73L12 11.64L3.8 7.91L12 4.18zm-8 7.55v4.54l8 3.64l8-3.64v-4.54l-8 3.64l-8-3.64z"/></svg></div>
+                        <div>
+                            <h4 class="text-sm font-medium text-white">Google Gemini Academy</h4>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-5 rounded-xl flex items-center gap-4 hover:border-white/20 transition-all">
+                        <div class="p-2 bg-white/5 rounded-md text-purple-400"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2L1 7l11 5l9-4.09V17h2V7L12 2zm0 2.18l8.2 3.73L12 11.64L3.8 7.91L12 4.18zm-8 7.55v4.54l8 3.64l8-3.64v-4.54l-8 3.64l-8-3.64z"/></svg></div>
+                        <div>
+                            <h4 class="text-sm font-medium text-white">IBM Generative AI: Prompt Engineering</h4>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-5 rounded-xl flex items-center gap-4 hover:border-white/20 transition-all">
+                        <div class="p-2 bg-white/5 rounded-md text-green-400"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2L1 7l11 5l9-4.09V17h2V7L12 2zm0 2.18l8.2 3.73L12 11.64L3.8 7.91L12 4.18zm-8 7.55v4.54l8 3.64l8-3.64v-4.54l-8 3.64l-8-3.64z"/></svg></div>
+                        <div>
+                            <h4 class="text-sm font-medium text-white">Python Programming for Agentic AI</h4>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-5 rounded-xl flex items-center gap-4 hover:border-white/20 transition-all">
+                        <div class="p-2 bg-white/5 rounded-md text-orange-400"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2L1 7l11 5l9-4.09V17h2V7L12 2zm0 2.18l8.2 3.73L12 11.64L3.8 7.91L12 4.18zm-8 7.55v4.54l8 3.64l8-3.64v-4.54l-8 3.64l-8-3.64z"/></svg></div>
+                        <div>
+                            <h4 class="text-sm font-medium text-white">Building AI Agents using n8n</h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact" class="py-32 px-6 relative overflow-hidden">
+        <div class="relative max-w-5xl mx-auto text-center animate-on-scroll" style="animation: animationIn 0.8s ease-out 0.2s both">
+            <h2 class="text-4xl md:text-5xl font-medium text-white tracking-tighter mb-8 leading-tight">
+                Ready to <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-400">build</span> the future?
+            </h2>
+            <p class="text-neutral-400 max-w-2xl mx-auto mb-12 text-sm md:text-base font-light">
+                Reach out via email or connect on LinkedIn to discuss AI solutions, full-stack development, and automation pipelines. Let's solve real problems.
+            </p>
+            <a href="mailto:jainilgandhi02@gmail.com" class="inline-flex items-center justify-center btn-liquid text-white font-medium py-4 px-10 rounded-full">
+                Email Me Now
+            </a>
+        </div>
+    </section>
+
+    <footer class="py-8 text-center text-[10px] text-neutral-600 uppercase tracking-widest">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <span>© 2026 Jainil Gandhi. All Rights Reserved.</span>
+            <div class="flex gap-6">
+                <a href="https://linkedin.com/in/Jainil Gandhi" target="_blank" class="hover:text-neutral-400 transition-colors">LinkedIn</a>
+                <a href="https://github.com/JainilGandhi16" target="_blank" class="hover:text-neutral-400 transition-colors">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
